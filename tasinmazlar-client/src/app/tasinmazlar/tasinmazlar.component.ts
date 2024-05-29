@@ -104,27 +104,6 @@ export class TasinmazlarComponent implements OnInit {
     });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   initializeMap(): void {
     const raster = new TileLayer({
       source: new OSM()
@@ -164,26 +143,6 @@ export class TasinmazlarComponent implements OnInit {
       target: document.getElementById('mouse-position'),
       undefinedHTML: '&nbsp;'
     }));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     const modify = new Modify({ source: vector.getSource() });
@@ -351,54 +310,6 @@ export class TasinmazlarComponent implements OnInit {
       this.districtLayer = null;
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   fetchCities(): void {
     this.http.get<City[]>('http://localhost:42390/api/cities').subscribe(
