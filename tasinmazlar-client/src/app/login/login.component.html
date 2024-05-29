@@ -1,0 +1,22 @@
+<div class="loginContainer">
+  <div class="loginCard">
+    <div class="loginForm">
+      <form *ngIf="!isAuthenticated" #loginForm="ngForm" (ngSubmit)="login()">
+        <div class="container">
+          <h5 class="mb-3" style="color:white;">TAŞINMAZ YÖNETİM PANELİ</h5>
+        </div>
+        <div class="container">
+          <input id="email" class="form-control mb-1" name="mailadress" [(ngModel)]="loginUser.mailadress" type="text"
+            placeholder="E-Mail" required>
+        </div>
+        <div class="container">
+          <input id="password" class="form-control mb-3" name="password" [(ngModel)]="loginUser.password"
+            type="password" placeholder="Password" required>
+        </div>
+        <div class="container text-center">
+          <button type="submit" class="btn btn-warning" [disabled]="!loginForm.valid">Giriş Yap</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

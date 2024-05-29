@@ -1,0 +1,40 @@
+.titleColor {
+    color: #ff4f4f;
+}
+
+td {
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #787878;
+}
+
+th {
+
+    font-family: "Kanit", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+
+}
+
+.setButton {
+
+    border: 1px solid #ff4f4f;
+    background-color: #ff4f4f;
+    border-radius: 5px;
+    color: white;
+    transition: 0.3s;
+
+}
+
+.setButton:hover {
+
+scale: 1.2;
+transition: 0.3s;
+
+}
+
+
+
+
+

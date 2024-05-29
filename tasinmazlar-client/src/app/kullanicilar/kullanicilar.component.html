@@ -1,0 +1,90 @@
+<app-navbar></app-navbar>
+<div class="pageTitle text-center mt-5">
+  <h2 class="kanit-thin" style="color: #787878;">KULLANICILAR</h2>
+</div>
+
+<div class="container text-center ">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="display: none;">ID</th>
+        <th>Seç</th>
+        <th>E-mail</th>
+        <th>Adı</th>
+        <th>Soyadı</th>
+        <th>Adres</th>
+        <th>Rol</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let users of users">
+        <td style="display: none;"><span>{{users.id}}</span></td>
+        <td><input type="checkbox" (change)="toggleCheckbox($event, users)"></td>
+        <td><span>{{users.mailadress}}</span></td>
+        <td><span>{{users.username}}</span></td>
+        <td><span>{{users.userlastname}}</span></td>
+        <td><span>{{users.useradress}}</span></td>    
+        <td><span>{{users.userrole}}</span></td> 
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+  <div class="container actionButtons text-center mt-3">
+    <div class="col">
+      <button type="button" class="btn btn-outline-success m-2" data-bs-toggle="modal" data-bs-target="#userAddModal"><i class="fa-solid fa-plus"></i></button>
+        <button class="btn btn-outline-warning m-2"><i class="fa-solid fa-gear"></i></button>
+        <button class="btn btn-outline-danger m-2" (click)="removeSelectedUsers()"><i class="fa-solid fa-trash-can"></i></button>
+        <button class="btn btn-outline-primary m-2"><i class="fa-regular fa-file-lines"></i></button>
+    </div>
+  </div>
+
+  <div class="container text-center mt-5">
+    <button class="btn btn-outline-primary">BUTON</button>
+  </div>
+
+
+
+<div class="modal fade text-center" id="userAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <input class="w-100 m-2 form-control" type="email" id="mailadress" name="mailadress" formControlName="mailadress" placeholder="E-Mail" required>
+          <input class="w-100 m-2 form-control" type="password" id="password" name="password" formControlName="password" placeholder="Parola" required>
+          <input class="w-100 m-2 form-control" type="password" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword" placeholder="Parolayı Onayla" required>
+          <input class="w-100 m-2 form-control" type="text" id="username" name="username" formControlName="username" placeholder="Ad">
+          <input class="w-100 m-2 form-control" type="text" id="userlastname" name="userlastname" formControlName="userlastname" placeholder="Soyad">
+          <input class="w-100 m-2 form-control" type="text" id="useradress" name="useradress" formControlName="useradress" placeholder="Adres">
+          <select class="form-control m-2" id="userrole" name="userrole" formControlName="userrole" required>
+            <option value="" disabled selected>Kullanıcı Rolü</option>
+            <option value="Yönetici">Yönetici</option>
+            <option value="Kullanıcı">Kullanıcı</option>
+          </select>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeAddUserModal()">Çıkış</button>
+        <button type="button" class="btn btn-success" (click)="register()">Kullanıcıyı Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="confirmDeletionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+

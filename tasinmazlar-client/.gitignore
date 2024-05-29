@@ -1,0 +1,50 @@
+# Angular specific files
+/dist/
+/out-tsc/
+
+# Node.js dependencies
+node_modules/
+
+# Build outputs
+bin/
+obj/
+
+# IDE files
+/.idea/
+/.vscode/
+/*.suo
+/*.ntvs
+/*.njsproj
+/*.sln
+/*.sw?
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional npm cache directory
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# dotenv environment variables file
+.env
+
+# Temporary files
+*.tmp
+*.temp
+
+
+# .NET Core / .NET 5 / .NET 6 specific files
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+
+# .NET Core / .NET 5 / .NET 6 projects
+appsettings.json

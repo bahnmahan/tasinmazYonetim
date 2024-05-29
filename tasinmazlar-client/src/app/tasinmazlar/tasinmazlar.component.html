@@ -1,0 +1,116 @@
+<app-navbar></app-navbar>
+<div class="pageTitle text-center mt-5 mb-5">
+    <h2 class="kanit-thin" style="color: #787878;">TAŞINMAZ YÖNETİMİ</h2>
+  </div>
+
+  <div class="container mt-5">
+    <form class="form-inline mb-2">
+      <select id="type" class="lineSelect kanit-medium">
+        <option value="Point">Point</option>
+        <option value="LineString">LineString</option>
+        <option value="Polygon">Polygon</option>
+        <option value="Circle">Circle</option>
+      </select>
+    </form>
+    <hr>
+    <div id="map" class="map mb-2"></div>
+    <hr>
+    <div id="mouse-position" class="mouse-position kanit-medium"></div>
+    <hr>
+  </div>
+
+<div class="checkboxes text-center mt-4 mb-4">
+  <label><input class="m-2" type="checkbox" [(ngModel)]="countryChecked" (change)="toggleLayers()"> Ülke Sınırları</label>
+  <label><input class="m-2" type="checkbox" [(ngModel)]="cityChecked" (change)="toggleLayers()"> İl Sınırları</label>
+  <label><input class="m-2" type="checkbox" [(ngModel)]="districtChecked" (change)="toggleLayers()"> İlçe Sınırları</label>
+</div>
+
+<div class="container">
+  <div class="container text-center">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="display: none;">ID</th>
+          <th>Seç</th>
+          <th>İl</th>
+          <th>İlçe</th>
+          <th>Mahalle</th>
+          <th>Ada</th>
+          <th>Parsel</th>
+          <th>Nitelik</th>
+          <th>Adres</th>
+          <th>Koordinatlar</th>
+          <th>Git</th>
+          <th style="display: none;">Düzenle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let estate of pagedEstates">
+          <td style="display: none;"><span>{{ estate.estateId }}</span></td>
+          <td><input type="checkbox" (change)="toggleCheckbox($event, estate)"></td>
+          <td><span>{{ estate.estateil }}</span></td>
+          <td><span>{{ estate.estateilce }}</span></td>
+          <td><span>{{ estate.estatemahalle }}</span></td>
+          <td><span>{{ estate.estateada }}</span></td>
+          <td><span>{{ estate.estateparsel }}</span></td>
+          <td><span>{{ estate.estatenitelik }}</span></td>
+          <td><span>{{ estate.estateadres }}</span></td> 
+          <td><span>{{ estate.estatecoords }}</span></td>
+          <td><span><button class="btn btn-outline-primary" (click)="goToLocation(estate.estatecoords)"><i class="fa-solid fa-compass"></i></button>
+          </span></td>
+        </tr>
+      </tbody>
+    </table>
+    <mat-paginator [length]="estates.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
+  </div>
+</div>
+
+
+<div class="container actionButtons text-center mt-5 mb-5">
+  <div class="col">
+      <button type="button" class="btn btn-outline-success m-2" data-bs-toggle="modal" data-bs-target="#postModal"><i class="fa-solid fa-plus"></i></button>
+      <button class="btn btn-outline-warning m-2" (click)="getuserRole()"><i class="fa-solid fa-gear"></i></button>
+      <button type="button" class="btn btn-outline-danger m-2" (click)="removeSelectedEstates()"><i class="fa-solid fa-trash-can"></i></button>
+      </div>
+</div>
+
+<hr>
+
+
+<div class="modal text-center" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="postModalLabel">Taşınmaz Ekle</h5>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="estateForm" (ngSubmit)="postData()">
+          <select class="form-control mb-1" formControlName="estateil" (change)="onCityChange($event.target.value)">
+            <option value="" disabled selected>Şehir Seçiniz</option>
+            <option *ngFor="let city of cities" [value]="city.cityname">{{ city.cityname }}</option>
+          </select>
+          <select class="form-control mb-1" formControlName="estateilce" (change)="onTownChange($event.target.value)">
+            <option value="" disabled selected>İlçe Seçiniz</option>
+            <option *ngFor="let town of towns" [value]="town.ilcename">{{ town.ilcename }}</option>
+          </select>
+          <select class="form-control mb-1" formControlName="estatemahalle">
+            <option value="" disabled selected>Mahalle Seçiniz</option>
+            <option *ngFor="let neighborhood of neighborhoods" [value]="neighborhood.mahalleadi">{{ neighborhood.mahalleadi }}</option>
+          </select>
+          <input type="text" class="form-control mb-1" formControlName="estateada" placeholder="Ada">
+          <input type="text" class="form-control mb-1" formControlName="estateparsel" placeholder="Parsel">
+          <input type="text" class="form-control mb-1" formControlName="estatenitelik" placeholder="Niteliği">
+          <input type="text" class="form-control mb-1" formControlName="estateadres" placeholder="Adres">
+          <input type="text" class="form-control mb-1" formControlName="estatecoords" placeholder="Koordinatlar">
+        </form>
+        <div *ngIf="!estateForm.valid && estateForm.dirty" class="alert alert-danger mt-1">
+          LÜTFEN TÜM ALANLARI DOLDURUN
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeNewEstateModal()">Kapat</button>
+        <button type="submit" class="btn btn-primary" (click)="postData()">Kaydet</button>
+      </div>
+    </div>
+  </div>
+
